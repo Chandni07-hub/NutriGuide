@@ -116,29 +116,40 @@ const DietModule = () => {
     };
   }, [profile]);
 
-  const handleGenerate = () => {
-    if (!profile.height || !profile.weight || !profile.age) {
-      toast.error("Please enter your height, weight, and age.");
-      return;
-    }
-    if (!nutritionGoals) return;
+  const handleGenerate = async () => {
 
-    const templates = mealTemplates[profile.goal];
-    const generatedMeals: Meal[] = templates.map((t, i) => ({
-      id: Date.now() + i,
-      name: t.name,
-      type: t.type,
-      time: t.time,
-      calories: Math.round(nutritionGoals.calories * t.calPct),
-      protein: Math.round(nutritionGoals.protein * t.pPct * 4),
-      carbs: Math.round(nutritionGoals.carbs * t.cPct * 4),
-      fat: Math.round(nutritionGoals.fat * t.fPct * 9),
+  if (!profile.height || !profile.weight || !profile.age) {
+    toast.error("Please enter your height, weight, and age.");
+    return;
+  }
+
+  try {
+
+    const response = await fetch("http://localhost:5000/api/meals");
+
+    const data = await response.json();
+
+    const backendMeals = data.map((m: any) => ({
+      id: Date.now() + Math.random(),
+      name: m.breakfast || m.name,
+      type: "breakfast",
+      time: "8:00 AM",
+      calories: m.calories || 400,
+      protein: 20,
+      carbs: 40,
+      fat: 10
     }));
 
-    setMeals(generatedMeals);
+    setMeals(backendMeals);
     setGenerated(true);
-    toast.success("Your personalized meal plan has been generated!");
-  };
+
+    toast.success("Meal plan generated from backend!");
+
+  } catch (error) {
+    console.error(error);
+    toast.error("Backend server not responding");
+  }
+};
 
   const totals = meals.reduce(
     (acc, m) => ({ calories: acc.calories + m.calories, protein: acc.protein + m.protein, carbs: acc.carbs + m.carbs, fat: acc.fat + m.fat }),
