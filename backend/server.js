@@ -24,6 +24,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/contact", contactRoutes);
 
+
 // simple endpoint
 app.get("/", (req, res) => {
     res.send("NutriGuide Backend Running");

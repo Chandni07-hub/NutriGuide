@@ -22,5 +22,50 @@
     "breakfast": "Oats + Fruits",
     "lunch": "Rice + Dal + Vegetables",
     "dinner": "Roti + Paneer"
+  },
+  {
+    "id": 1773036859267,
+    "userId": null,
+    "goal": "Lose Weight",
+    "calories": 1390,
+    "breakfast": "Boiled Eggs + Green Tea",
+    "lunch": "Grilled Chicken + Salad",
+    "dinner": "Vegetable Soup"
+  },
+  {
+    "id": 1773036890485,
+    "userId": null,
+    "goal": "Lose Weight",
+    "calories": 1390,
+    "breakfast": "Boiled Eggs + Green Tea",
+    "lunch": "Grilled Chicken + Salad",
+    "dinner": "Vegetable Soup"
+  },
+  {
+    "id": 1773037222468,
+    "userId": null,
+    "goal": "Gain Weight",
+    "calories": 2390,
+    "breakfast": "Oats + Banana + Peanut Butter",
+    "lunch": "Rice + Chicken + Vegetables",
+    "dinner": "Paneer + Roti"
+  },
+  {
+    "id": 1773037245705,
+    "userId": null,
+    "goal": "Maintain",
+    "calories": 1890,
+    "breakfast": "Oats + Fruits",
+    "lunch": "Rice + Dal + Vegetables",
+    "dinner": "Roti + Paneer"
+  },
+  {
+    "id": 1773038251257,
+    "userId": 1,
+    "goal": "Lose Weight",
+    "calories": 1852,
+    "breakfast": "Boiled Eggs + Green Tea",
+    "lunch": "Grilled Chicken + Salad",
+    "dinner": "Vegetable Soup"
   }
 ]

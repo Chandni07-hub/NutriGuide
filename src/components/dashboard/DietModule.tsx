@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus, Trash2, Flame, Beef, Wheat, Apple, Sparkles, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,12 +30,69 @@ const DietModule = () => {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [generated, setGenerated] = useState(false);
 
+  /* -------- NEW: Load meals for logged-in user when dashboard opens -------- */
+  useEffect(() => {
+
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) return;
+
+    fetch(`http://localhost:5000/api/meals/${userId}`)
+      .then(res => res.json())
+      .then(data => {
+
+        if (!data || data.length === 0) return;
+
+        const loadedMeals: Meal[] = [
+          {
+            id: Date.now(),
+            name: data[0].breakfast,
+            type: "breakfast",
+            calories: data[0].calories / 3,
+            protein: 30,
+            carbs: 40,
+            fat: 10,
+            time: "8:00 AM"
+          },
+          {
+            id: Date.now() + 1,
+            name: data[0].lunch,
+            type: "lunch",
+            calories: data[0].calories / 3,
+            protein: 30,
+            carbs: 40,
+            fat: 10,
+            time: "1:00 PM"
+          },
+          {
+            id: Date.now() + 2,
+            name: data[0].dinner,
+            type: "dinner",
+            calories: data[0].calories / 3,
+            protein: 30,
+            carbs: 40,
+            fat: 10,
+            time: "7:00 PM"
+          }
+        ];
+
+        setMeals(loadedMeals);
+        setGenerated(true);
+
+      })
+      .catch(err => console.error(err));
+
+  }, []);
+  /* ------------------------------------------------------------------------- */
+
   const handleGenerate = async () => {
 
     if (!profile.height || !profile.weight || !profile.age) {
       toast.error("Please enter height, weight and age");
       return;
     }
+
+    const userId = localStorage.getItem("userId");
 
     try {
 
@@ -44,7 +101,10 @@ const DietModule = () => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(profile)
+        body: JSON.stringify({
+          ...profile,
+          userId
+        })
       });
 
       const data = await res.json();
@@ -188,10 +248,8 @@ const DietModule = () => {
 
       {/* Nutrition Summary */}
       {generated && (
-
         <>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-
             <div className="nutri-card p-4">
               <div className="flex items-center gap-2">
                 <Flame /> Calories
@@ -219,16 +277,12 @@ const DietModule = () => {
               </div>
               <div className="text-2xl font-bold">{totals.fat}g</div>
             </div>
-
           </div>
 
           {/* Meal List */}
           <div className="space-y-3">
-
             {meals.map((meal) => (
-
               <div key={meal.id} className="nutri-card p-4 flex items-center justify-between">
-
                 <div>
                   <div className="font-semibold">{meal.name}</div>
                   <div className="text-xs text-muted-foreground">{meal.time}</div>
@@ -244,11 +298,8 @@ const DietModule = () => {
                 <Button variant="ghost" size="icon" onClick={() => deleteMeal(meal.id)}>
                   <Trash2 className="h-4 w-4 text-destructive" />
                 </Button>
-
               </div>
-
             ))}
-
           </div>
         </>
       )}

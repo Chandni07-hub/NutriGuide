@@ -6,6 +6,8 @@ const router = express.Router();
 
 const filePath = path.join(__dirname, "../data/meals.json");
 
+
+// Generate meal and store for user
 router.post("/generate-meal", (req, res) => {
 
     const { height, weight, age, gender, activity, goal, userId } = req.body;
@@ -80,5 +82,60 @@ router.post("/generate-meal", (req, res) => {
     });
 
 });
+
+router.get("/meals", (req, res) => {
+
+  fs.readFile(filePath, "utf8", (err, data) => {
+
+    if (err) {
+      return res.status(500).json({
+        message: "Error reading meals file"
+      });
+    }
+
+    let meals = [];
+
+    try {
+      meals = JSON.parse(data || "[]");
+    } catch {
+      meals = [];
+    }
+
+    res.json(meals);
+
+  });
+
+});
+
+
+// Get meals for a specific user
+router.get("/meals/:userId", (req, res) => {
+
+    const userId = req.params.userId;
+
+    fs.readFile(filePath, "utf8", (err, data) => {
+
+        if (err) {
+            return res.status(500).json({
+                message: "Error reading meals file"
+            });
+        }
+
+        let meals = [];
+
+        try {
+            meals = JSON.parse(data || "[]");
+        } catch {
+            meals = [];
+        }
+
+        const userMeals = meals.filter(meal => meal.userId == userId);
+
+        res.json(userMeals);
+
+    });
+
+});
+
 
 module.exports = router;
