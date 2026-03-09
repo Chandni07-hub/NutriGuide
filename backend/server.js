@@ -16,9 +16,13 @@ app.use(logger);
 // routes
 const mealRoutes = require("./routes/mealRoutes");
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 
 app.use("/api", mealRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/contact", contactRoutes);
 
 // simple endpoint
 app.get("/", (req, res) => {

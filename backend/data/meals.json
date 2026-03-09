@@ -1,14 +1,20 @@
-    [
+[
   {
-    "breakfast": "Oats with fruits",
-    "lunch": "Brown rice with vegetables",
-    "dinner": "Grilled paneer salad",
-    "calories": 2000
+    "goal": "gain",
+    "breakfast": "Oats + Banana + Peanut Butter",
+    "lunch": "Rice + Chicken + Vegetables",
+    "dinner": "Paneer + Roti"
   },
   {
-    "breakfast": "Egg sandwich",
-    "lunch": "Chicken salad",
-    "dinner": "Soup and vegetables",
-    "calories": 1800
+    "goal": "lose",
+    "breakfast": "Boiled Eggs + Green Tea",
+    "lunch": "Grilled Chicken + Salad",
+    "dinner": "Vegetable Soup"
+  },
+  {
+    "goal": "maintain",
+    "breakfast": "Oats + Fruits",
+    "lunch": "Rice + Dal + Vegetables",
+    "dinner": "Roti + Paneer"
   }
 ]
