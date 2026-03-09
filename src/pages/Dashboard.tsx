@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Utensils, Dumbbell, TrendingUp, User, BookOpen, CalendarCheck } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+
 import DietModule from "@/components/dashboard/DietModule";
 import FitnessModule from "@/components/dashboard/FitnessModule";
 import ProgressModule from "@/components/dashboard/ProgressModule";
@@ -10,76 +11,97 @@ import BlogModule from "@/components/dashboard/BlogModule";
 import ConsultationModule from "@/components/dashboard/ConsultationModule";
 
 const tabs = [
-{ value: "diet", label: "Diet", icon: Utensils },
-{ value: "fitness", label: "Fitness", icon: Dumbbell },
-{ value: "progress", label: "Progress", icon: TrendingUp },
-{ value: "consultations", label: "Consult", icon: CalendarCheck },
-{ value: "blog", label: "Blog", icon: BookOpen },
-{ value: "profile", label: "Profile", icon: User },
+  { value: "diet", label: "Diet", icon: Utensils },
+  { value: "fitness", label: "Fitness", icon: Dumbbell },
+  { value: "progress", label: "Progress", icon: TrendingUp },
+  { value: "consultations", label: "Consult", icon: CalendarCheck },
+  { value: "blog", label: "Blog", icon: BookOpen },
+  { value: "profile", label: "Profile", icon: User },
 ];
 
 const Dashboard = () => {
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-useEffect(() => {
-const token = localStorage.getItem("token");
+  // protect dashboard
+  useEffect(() => {
 
-if (!token) {
-  navigate("/auth");
-}
+    const token = localStorage.getItem("token");
 
-}, []);
+    if (!token) {
+      navigate("/auth");
+    }
 
-return ( <div className="min-h-[calc(100vh-4rem)] bg-muted/30"> <section className="bg-primary/10 py-8"> <div className="container"> <h1 className="section-heading mb-1">Your <span>Dashboard</span></h1> <p className="text-muted-foreground text-sm">
-Track meals, workouts, and progress — all in one place. </p> </div> </section>
+  }, [navigate]);
 
-```
-  <div className="container py-8">
-    <Tabs defaultValue="diet" className="space-y-6">
+  return (
+    <div className="min-h-[calc(100vh-4rem)] bg-muted/30">
 
-      <TabsList className="h-auto flex-wrap gap-1 bg-card border border-border p-1.5 rounded-xl">
-        {tabs.map((t) => (
-          <TabsTrigger
-            key={t.value}
-            value={t.value}
-            className="gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-3 py-2 text-xs"
-          >
-            <t.icon className="h-3.5 w-3.5" />
-            {t.label}
-          </TabsTrigger>
-        ))}
-      </TabsList>
+      {/* header */}
+      <section className="bg-primary/10 py-8">
+        <div className="container">
+          <h1 className="section-heading mb-1">
+            Your <span>Dashboard</span>
+          </h1>
 
-      <TabsContent value="diet">
-        <DietModule />
-      </TabsContent>
+          <p className="text-muted-foreground text-sm">
+            Track meals, workouts, and progress — all in one place.
+          </p>
+        </div>
+      </section>
 
-      <TabsContent value="fitness">
-        <FitnessModule />
-      </TabsContent>
+      {/* tabs */}
+      <div className="container py-8">
 
-      <TabsContent value="progress">
-        <ProgressModule />
-      </TabsContent>
+        <Tabs defaultValue="diet" className="space-y-6">
 
-      <TabsContent value="consultations">
-        <ConsultationModule />
-      </TabsContent>
+          {/* tab buttons */}
+          <TabsList className="h-auto flex-wrap gap-1 bg-card border border-border p-1.5 rounded-xl">
 
-      <TabsContent value="blog">
-        <BlogModule />
-      </TabsContent>
+            {tabs.map((t) => (
+              <TabsTrigger
+                key={t.value}
+                value={t.value}
+                className="gap-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg px-3 py-2 text-xs"
+              >
+                <t.icon className="h-3.5 w-3.5" />
+                {t.label}
+              </TabsTrigger>
+            ))}
 
-      <TabsContent value="profile">
-        <ProfileModule />
-      </TabsContent>
+          </TabsList>
 
-    </Tabs>
-  </div>
-</div>
+          {/* tab content */}
 
-);
+          <TabsContent value="diet">
+            <DietModule />
+          </TabsContent>
+
+          <TabsContent value="fitness">
+            <FitnessModule />
+          </TabsContent>
+
+          <TabsContent value="progress">
+            <ProgressModule />
+          </TabsContent>
+
+          <TabsContent value="consultations">
+            <ConsultationModule />
+          </TabsContent>
+
+          <TabsContent value="blog">
+            <BlogModule />
+          </TabsContent>
+
+          <TabsContent value="profile">
+            <ProfileModule />
+          </TabsContent>
+
+        </Tabs>
+
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;

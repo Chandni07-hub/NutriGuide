@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
 
-const app = express();
+const app = express();                      // app creates the express sever
 const PORT = 5000;
 
 app.use(cors());
@@ -19,7 +19,7 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 
-app.use("/api", mealRoutes);
+app.use("/api", mealRoutes);          
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/contact", contactRoutes);

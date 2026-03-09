@@ -1,18 +1,24 @@
 [
   {
-    "goal": "gain",
-    "breakfast": "Oats + Banana + Peanut Butter",
-    "lunch": "Rice + Chicken + Vegetables",
-    "dinner": "Paneer + Roti"
-  },
-  {
-    "goal": "lose",
+    "id": 1773035489738,
+    "goal": "Lose Weight",
+    "calories": 1390,
     "breakfast": "Boiled Eggs + Green Tea",
     "lunch": "Grilled Chicken + Salad",
     "dinner": "Vegetable Soup"
   },
   {
-    "goal": "maintain",
+    "id": 1773035500720,
+    "goal": "Gain Weight",
+    "calories": 2390,
+    "breakfast": "Oats + Banana + Peanut Butter",
+    "lunch": "Rice + Chicken + Vegetables",
+    "dinner": "Paneer + Roti"
+  },
+  {
+    "id": 1773035506583,
+    "goal": "Maintain",
+    "calories": 1890,
     "breakfast": "Oats + Fruits",
     "lunch": "Rice + Dal + Vegetables",
     "dinner": "Roti + Paneer"
